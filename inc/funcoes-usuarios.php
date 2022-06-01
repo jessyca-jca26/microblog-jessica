@@ -45,6 +45,11 @@ function lerUsuarios(mysqli $conexao):array{
 
 
 // Função excluirUsuario: usada em usuario-exclui.php
+function excluirUsuario(mysqli $conexao, int $id){
+    $sql = "DELETE FROM usuarios WHERE id = $id";
+    mysqli_query($conexao, $sql) or die (mysqli_error($conexao));
+
+}
 
 // fim excluirUsuario
 
@@ -65,6 +70,17 @@ function lerUmUsuario(mysqli $conexao, int $id):array{
 
 
 // Função verificaSenha: usada em usuario-atualiza.php
+function verificaSenha(string $senhaFormulario, string $senhaBanco){
+    /* Usamos a passoword_verify para comparar as duas senhas : A digitada no formulário e a existente no banco */
+    if(password_verify($senhaFormulario, $senhaBanco) ){
+        /* Se elas forem iguais, então significa que o usuario não mudou nada. Portanto , simplesmente mantemos a senha existente. */
+        return $senhaBanco; // mantemos como está (a senha que ja existia)
+    } else {
+        /* Mas se forem diferentes, então pegamos a senha digitada no formulario e a codificamos antes de enviar ao banco. */
+        return codificaSenha($senhaFormulario);
+}
+
+}
 
 // fim verificaSenha
 
@@ -87,6 +103,12 @@ string $email, string $senha, string $tipo){
 
 
 // Função buscarUsuario: usada em login.php
+function buscarUsuario(mysqli $conexao, string $email):array{
+    $sql = "SELECT id, nome, email, tipo, senha FROM usuarios WHERE email = '$email'";
+
+    $resultado = mysqli_query($conexao, $sql) or die (mysqli_error($conexao));
+    return mysqli_fetch_assoc($resultado);
+}
 
 // fim buscarUsuario
 
