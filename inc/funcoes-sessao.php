@@ -9,7 +9,7 @@ if(!isset($_SESSION)){
 }
 
 function verificaAcesso(){
-    /* Se NÃO EXISTE uma variavel de sessão */ 
+    /* Se NÃO EXISTE uma variavel de sessão ao id de usuario logado */ 
     if(!isset($_SESSION['id'])){
         /* Então siginifica que ele NÃO ESTA LOGADO , portanto apague qualquer resquicio de sessão e force o usuario a ir para o login.php*/
         session_destroy();
@@ -33,7 +33,7 @@ function login(int $id, string $nome, string $email, string $tipo){
 function logout(){
     session_start();
     session_destroy();
-    header("location:../login.php");
+    header("location:../login.php?logout");
     die();
 
 }
