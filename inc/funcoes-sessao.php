@@ -37,3 +37,15 @@ function logout(){
     die();
 
 }
+
+
+
+function verificaAcessoAdmin(){
+    /* Se o tipo de usuario logado NÃO FOR admin */
+    if($_SESSION['tipo'] != 'admin'){
+        //Redireciona para a pagina não autorizada
+        header("location:nao-autorizado.php");
+        die(); // ou exit 
+
+    }
+}

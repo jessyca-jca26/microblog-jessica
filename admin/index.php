@@ -13,7 +13,9 @@
       <p class="lead">
         <a class="btn btn-primary" href="meu-perfil.php" >Meu perfil</a>
         <a class="btn btn-primary" href="posts.php">Gerenciar Posts</a>
-        <a class="btn btn-primary" href="usuarios.php">Gerenciar Usuários</a>
+        <?php if ($_SESSION['tipo'] == 'admin'){ ?>
+          <a class="btn btn-primary" href="usuarios.php">Gerenciar Usuários</a>
+        <?php } ?>
       </p>
     </article>
         
